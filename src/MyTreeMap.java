@@ -1,15 +1,16 @@
-/**
- *
- */
-
-import java.util.*;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation of a Map using a binary search tree.
  *
  * @param <K>
  * @param <V>
- *
  */
 public class MyTreeMap<K, V> implements Map<K, V> {
 
@@ -18,7 +19,6 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
 	/**
 	 * Represents a node in the tree.
-	 *
 	 */
 	protected class Node {
 		public K key;
@@ -29,6 +29,8 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		/**
 		 * @param key
 		 * @param value
+		 * @param left
+		 * @param right
 		 */
 		public Node(K key, V value) {
 			this.key = key;
@@ -53,6 +55,9 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	 * @param target
 	 */
 	private Node findNode(Object target) {
+		Node returVal = null;
+		Node pointer = root;
+
 		// some implementations can handle null as a key, but not this one
 		if (target == null) {
 			throw new IllegalArgumentException();
@@ -62,8 +67,14 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		@SuppressWarnings("unchecked")
 		Comparable<? super K> k = (Comparable<? super K>) target;
 
-		// TODO: FILL THIS IN!
-		return null;
+		while (returVal == null && pointer != null) {
+			if (k == pointer.key)
+				returVal = pointer;
+			else
+				pointer = k.compareTo(pointer.key) < 0 ? pointer.left : pointer.right;
+		}
+
+		return returVal;
 	}
 
 	/**
@@ -86,12 +97,18 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	}
 
 	private boolean containsValueHelper(Node node, Object target) {
-		// TODO: FILL THIS IN!
-		return false;
+		if (target.equals(node.value))
+			return true;
+
+		if (node.left != null && containsValueHelper(node.left, target))
+			return true;
+
+		//this is not legible but the IDE insists on it
+		return node.right != null && containsValueHelper(node.right, target);
 	}
 
 	@Override
-	public Set<Entry<K, V>> entrySet() {
+	public Set<Map.Entry<K, V>> entrySet() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -130,13 +147,19 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	}
 
 	private V putHelper(Node node, K key, V value) {
+		Comparable<? super K> k = (Comparable<? super K>) target;
+
 		// TODO: FILL THIS IN!
+		Node next = root;
+		while(next != null){
+			next = node.key.compareTo(next.key) < 0 ? next.right : next.left;
+		}
 		return null;
 	}
 
 	@Override
 	public void putAll(Map<? extends K, ? extends V> map) {
-		for (Entry<? extends K, ? extends V> entry: map.entrySet()) {
+		for (Map.Entry<? extends K, ? extends V> entry : map.entrySet()) {
 			put(entry.getKey(), entry.getValue());
 		}
 	}
@@ -177,40 +200,40 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 		Integer value = map.get("Word1");
 		System.out.println(value);
 
-		for (String key: map.keySet()) {
+		for (String key : map.keySet()) {
 			System.out.println(key + ", " + map.get(key));
 		}
 	}
 
 	/**
 	 * Makes a node.
-	 *
+	 * <p>
 	 * This is only here for testing purposes.  Should not be used otherwise.
 	 *
 	 * @param key
 	 * @param value
 	 * @return
 	 */
-	public Node makeNode(K key, V value) {
+	public MyTreeMap<K, V>.Node makeNode(K key, V value) {
 		return new Node(key, value);
 	}
 
 	/**
 	 * Sets the instance variables.
-	 *
+	 * <p>
 	 * This is only here for testing purposes.  Should not be used otherwise.
 	 *
 	 * @param node
 	 * @param size
 	 */
-	public void setTree(Node node, int size ) {
+	public void setTree(Node node, int size) {
 		this.root = node;
 		this.size = size;
 	}
 
 	/**
 	 * Returns the height of the tree.
-	 *
+	 * <p>
 	 * This is only here for testing purposes.  Should not be used otherwise.
 	 *
 	 * @return
