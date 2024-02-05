@@ -147,13 +147,33 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 	}
 
 	private V putHelper(Node node, K key, V value) {
-		Comparable<? super K> k = (Comparable<? super K>) target;
+		V returnVal = null;
+		Comparable<? super K> k = (Comparable<? super K>) key;
 
 		// TODO: FILL THIS IN!
-		Node next = root;
-		while(next != null){
-			next = node.key.compareTo(next.key) < 0 ? next.right : next.left;
+// If the key is found, update the value and return the old value
+		if(k.compareTo(node.key) == 0) {
+			returnVal = node.value;
+			node.value = value;
+			return returnVal;
 		}
+
+		// Decide whether to go left or right in the tree
+		Node next = k.compareTo(node.key) < 0 ? node.left : node.right;
+
+		// If the child is null, create a new node and set it as the left or right child
+		if(next == null) {
+			if (k.compareTo(node.key) < 0)
+				node.left = new Node(key, value);
+			else
+				node.right = new Node(key, value);
+
+			size++;
+		}
+		else
+			// If the child is not null, recursively call putHelper on the child
+			putHelper(next, key, value);
+
 		return null;
 	}
 

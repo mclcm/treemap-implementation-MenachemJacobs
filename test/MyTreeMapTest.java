@@ -45,7 +45,7 @@ public class MyTreeMapTest {
 		node06.left = node04;
 		node06.right = node07;
 		node14.left = node13;
-		
+
 		map.setTree(node08, 9);
 	}
 
