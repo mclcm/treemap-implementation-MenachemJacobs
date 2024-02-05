@@ -1,14 +1,15 @@
-/**
- * 
- */
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author downey
@@ -19,25 +20,25 @@ public class MyTreeMapTest {
 	private MyTreeMap<String, Integer> map;
 
 	/**
-	 * @throws Exception
+	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		map = new MyTreeMap<String, Integer>();
 		MyTreeMap<String, Integer>.Node node08 = map.makeNode("08", 8);
-		
+
 		MyTreeMap<String, Integer>.Node node03 = map.makeNode("03", 3);
 		MyTreeMap<String, Integer>.Node node10 = map.makeNode("10", 10);
 		node08.left = node03;
 		node08.right = node10;
-		
+
 		MyTreeMap<String, Integer>.Node node01 = map.makeNode("01", 1);
 		MyTreeMap<String, Integer>.Node node06 = map.makeNode("06", 6);
 		MyTreeMap<String, Integer>.Node node14 = map.makeNode("14", 14);
 		node03.left = node01;
 		node03.right = node06;
 		node10.right = node14;
-		
+
 		MyTreeMap<String, Integer>.Node node04 = map.makeNode("04", 4);
 		MyTreeMap<String, Integer>.Node node07 = map.makeNode("07", 7);
 		MyTreeMap<String, Integer>.Node node13 = map.makeNode("13", 13);
@@ -49,7 +50,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#clear()}.
+	 * Test method for {@link MyLinearMap#clear()}.
 	 */
 	@Test
 	public void testClear() {
@@ -58,7 +59,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#containsKey(Object)}.
+	 * Test method for {@link MyLinearMap#containsKey(java.lang.Object)}.
 	 */
 	@Test
 	public void testContainsKey() {
@@ -67,7 +68,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#containsValue(Object)}.
+	 * Test method for {@link MyLinearMap#containsValue(java.lang.Object)}.
 	 */
 	@Test
 	public void testContainsValue() {
@@ -76,7 +77,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#get(Object)}.
+	 * Test method for {@link MyLinearMap#get(java.lang.Object)}.
 	 */
 	@Test
 	public void testGet() {
@@ -89,13 +90,13 @@ public class MyTreeMapTest {
 		assertThat(map.get("10"), is(10));
 		assertThat(map.get("13"), is(13));
 		assertThat(map.get("14"), is(14));
-		
+
 		assertThat(map.get("02"), nullValue());
 		assertThat(map.get("05"), nullValue());
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#isEmpty()}.
+	 * Test method for {@link MyLinearMap#isEmpty()}.
 	 */
 	@Test
 	public void testIsEmpty() {
@@ -105,7 +106,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#keySet()}.
+	 * Test method for {@link MyLinearMap#keySet()}.
 	 */
 	@Test
 	public void testKeySet() {
@@ -113,10 +114,10 @@ public class MyTreeMapTest {
 		assertThat(keySet.size(), is(9));
 		assertThat(keySet.contains("03"), is(true));
 		assertThat(keySet.contains("05"), is(false));
-		
+
 		List<String> list = new ArrayList<String>();
 		list.addAll(keySet);
-		
+
 		// check that the keys are in ascending order
 		for (int i=0; i<list.size()-1; i++) {
 			System.out.println(list.get(i));
@@ -130,21 +131,21 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#put(Object, Object)}.
+	 * Test method for {@link MyLinearMap#put(java.lang.Object, java.lang.Object)}.
 	 */
 	@Test
 	public void testPut() {
 		map.put("06", 66);
 		assertThat(map.size(), is(9));
 		assertThat(map.get("06"), is(66));
-		
+
 		map.put("05", 5);
 		assertThat(map.size(), is(10));
 		assertThat(map.get("05"), is(5));
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#putAll(Map)}.
+	 * Test method for {@link MyLinearMap#putAll(java.util.Map)}.
 	 */
 	@Test
 	public void testPutAll() {
@@ -157,7 +158,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#remove(Object)}.
+	 * Test method for {@link MyLinearMap#remove(java.lang.Object)}.
 	 */
 	@Test
 	public void testRemove() {
@@ -165,7 +166,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#size()}.
+	 * Test method for {@link MyLinearMap#size()}.
 	 */
 	@Test
 	public void testSize() {
@@ -173,7 +174,7 @@ public class MyTreeMapTest {
 	}
 
 	/**
-	 * Test method for {@link MyTreeMap#values()}.
+	 * Test method for {@link MyLinearMap#values()}.
 	 */
 	@Test
 	public void testValues() {
