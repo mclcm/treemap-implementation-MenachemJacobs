@@ -142,8 +142,18 @@ public class MyTreeMap<K, V> implements Map<K, V> {
     @Override
     public Set<K> keySet() {
         Set<K> set = new LinkedHashSet<K>();
-        // TODO: FILL THIS IN!
+        collectKeys(root, set);
         return set;
+    }
+
+    private void collectKeys(Node currentNode, Set<K> keySet){
+        if(currentNode.left != null)
+            collectKeys(currentNode.left, keySet);
+
+        keySet.add(currentNode.key);
+
+        if(currentNode.right != null)
+            collectKeys(currentNode.right, keySet);
     }
 
     @Override
