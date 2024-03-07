@@ -80,7 +80,7 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
         //uses the tree's stepping logic to descend through the levels until it finds the passed value, then kills the loop when the value is found or tree is exhausted.
         while (returVal == null && pointer != null) {
-            if (k == pointer.key)
+            if (k.compareTo(pointer.key) == 0)
                 returVal = pointer;
             else
                 pointer = k.compareTo(pointer.key) < 0 ? pointer.left : pointer.right;
