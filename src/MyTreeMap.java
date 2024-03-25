@@ -27,10 +27,8 @@ public class MyTreeMap<K, V> implements Map<K, V> {
         public Node right = null;
 
         /**
-         * @param key
-         * @param value
-         * @param left
-         * @param right
+         * @param key   the key value to store the node under
+         * @param value the value to store in the node data field
          */
         public Node(K key, V value) {
             this.key = key;
@@ -66,7 +64,7 @@ public class MyTreeMap<K, V> implements Map<K, V> {
      * @param target the key value the method will search for in the tree
      */
     private Node findNode(Object target) {
-        Node returVal = null;
+        Node returnVal = null;
         Node pointer = root;
 
         // some implementations can handle null as a key, but not this one
@@ -77,24 +75,26 @@ public class MyTreeMap<K, V> implements Map<K, V> {
         // something to make the compiler happy
         @SuppressWarnings("unchecked")
         Comparable<? super K> k = (Comparable<? super K>) target;
+        int comparison;
 
         //uses the tree's stepping logic to descend through the levels until it finds the passed value, then kills the loop when the value is found or tree is exhausted.
-        while (returVal == null && pointer != null) {
-            if (k.compareTo(pointer.key) == 0)
-                returVal = pointer;
+        while (returnVal == null && pointer != null) {
+            comparison = k.compareTo(pointer.key);
+            if (comparison == 0)
+                returnVal = pointer;
             else
-                pointer = k.compareTo(pointer.key) < 0 ? pointer.left : pointer.right;
+                pointer = comparison < 0 ? pointer.left : pointer.right;
         }
 
-        return returVal;
+        return returnVal;
     }
 
     /**
      * Compares two keys or two values, handling null correctly.
      *
-     * @param target
-     * @param obj
-     * @return
+     * @param target key value of node to be found
+     * @param obj    value to compare data field of found node against
+     * @return the result of the object specific compare operation
      */
     private boolean equals(Object target, Object obj) {
         if (target == null) {
@@ -115,9 +115,8 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
         if (node.left != null && containsValueHelper(node.left, target))
             return true;
-
-        //this is not legible but the IDE insists on it
-        return node.right != null && containsValueHelper(node.right, target);
+        else
+            return node.right != null && containsValueHelper(node.right, target);
     }
 
     @Override
@@ -128,10 +127,8 @@ public class MyTreeMap<K, V> implements Map<K, V> {
     @Override
     public V get(Object key) {
         Node node = findNode(key);
-        if (node == null) {
-            return null;
-        }
-        return node.value;
+
+        return (node == null) ? null : node.value;
     }
 
     @Override
@@ -141,18 +138,18 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-        Set<K> set = new LinkedHashSet<K>();
+        Set<K> set = new LinkedHashSet<>();
         collectKeys(root, set);
         return set;
     }
 
-    private void collectKeys(Node currentNode, Set<K> keySet){
-        if(currentNode.left != null)
+    private void collectKeys(Node currentNode, Set<K> keySet) {
+        if (currentNode.left != null)
             collectKeys(currentNode.left, keySet);
 
         keySet.add(currentNode.key);
 
-        if(currentNode.right != null)
+        if (currentNode.right != null)
             collectKeys(currentNode.right, keySet);
     }
 
@@ -170,22 +167,24 @@ public class MyTreeMap<K, V> implements Map<K, V> {
     }
 
     private V putHelper(Node node, K key, V value) {
-        V returnVal = null;
-        Comparable<? super K> k = (Comparable<? super K>) key;
 
-// If the key is found, update the value and return the old value
-        if (k.compareTo(node.key) == 0) {
-            returnVal = node.value;
+        @SuppressWarnings("unchecked")
+        Comparable<? super K> k = (Comparable<? super K>) key;
+        int comparison = k.compareTo(node.key);
+
+        // If the key is found, update the value field and return the old value
+        if (comparison == 0) {
+            V returnVal = node.value;
             node.value = value;
             return returnVal;
         }
 
-        // Decide whether to go left or right in the tree
-        Node next = k.compareTo(node.key) < 0 ? node.left : node.right;
+        // Decide whether to go left or right in the tree. I don't need to fear the comparison = 0 case as it has been filtered in the above lines.
+        Node next = comparison < 0 ? node.left : node.right;
 
         // If the child is null, create a new node and set it as the left or right child
         if (next == null) {
-            if (k.compareTo(node.key) < 0)
+            if (comparison < 0)
                 node.left = new Node(key, value);
             else
                 node.right = new Node(key, value);
@@ -218,8 +217,8 @@ public class MyTreeMap<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
-        Set<V> set = new HashSet<V>();
-        Deque<Node> stack = new LinkedList<Node>();
+        Set<V> set = new HashSet<>();
+        Deque<Node> stack = new LinkedList<>();
         stack.push(root);
         while (!stack.isEmpty()) {
             Node node = stack.pop();
@@ -232,10 +231,10 @@ public class MyTreeMap<K, V> implements Map<K, V> {
     }
 
     /**
-     * @param args
+     * @param args values passed to the program from the command line
      */
     public static void main(String[] args) {
-        Map<String, Integer> map = new MyTreeMap<String, Integer>();
+        Map<String, Integer> map = new MyTreeMap<>();
         map.put("Word1", 1);
         map.put("Word2", 2);
         Integer value = map.get("Word1");
@@ -251,9 +250,9 @@ public class MyTreeMap<K, V> implements Map<K, V> {
      * <p>
      * This is only here for testing purposes.  Should not be used otherwise.
      *
-     * @param key
-     * @param value
-     * @return
+     * @param key   key value of new node to construct
+     * @param value value to store in new node's data field
+     * @return the newly created node
      */
     public MyTreeMap<K, V>.Node makeNode(K key, V value) {
         return new Node(key, value);
@@ -264,8 +263,8 @@ public class MyTreeMap<K, V> implements Map<K, V> {
      * <p>
      * This is only here for testing purposes.  Should not be used otherwise.
      *
-     * @param node
-     * @param size
+     * @param node node to be used as root in new instance
+     * @param size size of tree passed in by the method
      */
     public void setTree(Node node, int size) {
         this.root = node;
@@ -277,7 +276,7 @@ public class MyTreeMap<K, V> implements Map<K, V> {
      * <p>
      * This is only here for testing purposes.  Should not be used otherwise.
      *
-     * @return
+     * @return the height of the tree
      */
     public int height() {
         return heightHelper(root);
