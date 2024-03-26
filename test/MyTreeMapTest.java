@@ -48,7 +48,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#clear()}.
+     * Test method for {@link MyTreeMap#clear()}.
      */
     @Test
     public void testClear() {
@@ -57,7 +57,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#containsKey(java.lang.Object)}.
+     * Test method for {@link MyTreeMap#containsKey(java.lang.Object)}.
      */
     @Test
     public void testContainsKey() {
@@ -66,7 +66,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#containsValue(java.lang.Object)}.
+     * Test method for {@link MyTreeMap#containsValue(java.lang.Object)}.
      */
     @Test
     public void testContainsValue() {
@@ -75,7 +75,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#get(java.lang.Object)}.
+     * Test method for {@link MyTreeMap#get(java.lang.Object)}.
      */
     @Test
     public void testGet() {
@@ -94,7 +94,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#isEmpty()}.
+     * Test method for {@link MyTreeMap#isEmpty()}.
      */
     @Test
     public void testIsEmpty() {
@@ -104,7 +104,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#keySet()}.
+     * Test method for {@link MyTreeMap#keySet()}.
      */
     @Test
     public void testKeySet() {
@@ -127,7 +127,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#put(java.lang.Object, java.lang.Object)}.
+     * Test method for {@link MyTreeMap#put(java.lang.Object, java.lang.Object)}.
      */
     @Test
     public void testPut() {
@@ -141,7 +141,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#putAll(java.util.Map)}.
+     * Test method for {@link MyTreeMap#putAll(java.util.Map)}.
      */
     @Test
     public void testPutAll() {
@@ -154,7 +154,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#remove(java.lang.Object)}.
+     * Test method for {@link MyTreeMap#remove(java.lang.Object)}.
      */
     @Test
     public void testRemove() {
@@ -162,7 +162,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#size()}.
+     * Test method for {@link MyTreeMap#size()}.
      */
     @Test
     public void testSize() {
@@ -170,7 +170,7 @@ public class MyTreeMapTest {
     }
 
     /**
-     * Test method for {@link MyLinearMap#values()}.
+     * Test method for {@link MyTreeMap#values()}.
      */
     @Test
     public void testValues() {
